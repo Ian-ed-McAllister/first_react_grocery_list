@@ -6,7 +6,7 @@ const LineItem = ({item, handleCheck, handleDelete}) => {
   return (
     <div>
     {/* //list items need to have the key item to allow react to know if it got changed */}
-        <li className='item' onDoubleClick={() => handleCheck(item.id)}>
+        <li className='item' >
             <input 
                 type="checkbox" 
                 checked={item.checked}

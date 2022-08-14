@@ -28,7 +28,8 @@ const Content = ({items, handleCheck, handleDelete}) => {
     // }
 
   return (
-    <main>
+    // <> is a fragment it will use the parent jsx type
+    <>
         {items.length ? (
             <ItemList 
             items = {items}
@@ -39,7 +40,7 @@ const Content = ({items, handleCheck, handleDelete}) => {
                 NO ITEMS IN LIST
             </p>
         )}
-    </main>
+    </>
   )
 }
 
