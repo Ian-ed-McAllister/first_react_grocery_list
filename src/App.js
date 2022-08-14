@@ -2,48 +2,64 @@
 import Header from './Header';
 import Content from './Content';
 import Footer from './Footer';
+import AddItem from './AddItem';
+import Search from './Search';
+
 import { useState } from 'react';
 
 function App() {
-  const [items, setItems] = useState([
-    {
-        id: 1,
-        checked: false,
-        item: "1/2 pound bag of cocoa Almonds"
-    },
-    {
-        id: 2,
-        checked: false,
-        item: "Item2"
-    },
-    {
-        id:3,
-        checked: false,
-        item: "item 3"
-    }
-  ])
+  const [items, setItems] = useState(JSON.parse(localStorage.getItem('shoppingList')))
+  const [search, setSearch] = useState('')
+  const [newItem,setNewItem] = useState('')
+  
+  const setAndSaveItems = (listItems) =>{
+    setItems(listItems)
+    localStorage.setItem('shoppingList', JSON.stringify(listItems))
+  }
+
+  const addItem = (item) => {
+    const id = items.length ? items[items.length -1 ].id + 1 : 1
+    const myNewItem = {id, checked: false, item}
+    const listItems = [...items, myNewItem]
+    setAndSaveItems(listItems)
+  }
+
 
   const handleCheck = (id) => {
     const listItems = items.map((item) => item.id === id ? { ...item, checked: !item.checked} : item)
-    setItems(listItems)
-    localStorage.setItem('shoppingList', JSON.stringify(listItems))
-
-    console.log(`key: ${id}`)
+    setAndSaveItems(listItems)
   }
 
   const handleDelete = (id) =>{
     const listItems = items.filter((item) => item.id !== id)
-    setItems(listItems)
-    localStorage.setItem('shoppingList', JSON.stringify(listItems))
+    setAndSaveItems(listItems)
   }
-  
+
+  const handleSubmit = (e) =>{
+    e.preventDefault()
+    if(!newItem) return
+    addItem(newItem)
+    setNewItem('')
+  }
+
   return (
     <div className="App">
         <Header title = "Groceries"/>
+        <AddItem 
+          newItem = {newItem}
+          setNewItem = {setNewItem}
+          handleSubmit = {handleSubmit}
+        />
+        <Search 
+          search = {search}
+          setSearch = {setSearch}
+          
+        />
         <Content 
-        items={items} 
-        handleCheck = {handleCheck}
-        handleDelete = {handleDelete} />
+          items={items.filter(item => ((item.item).toLowerCase()).includes(search.toLowerCase()))} 
+          handleCheck = {handleCheck}
+          handleDelete = {handleDelete}
+        />
         <Footer length={items.length}/>
     </div>
   );
