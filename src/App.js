@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 
 
 function App() {
-  const API_URL = "http://localhost:3500/items"
+  const API_URL = "https://my-json-server.typicode.com/ian-ed-mcallister/react_grocery_list_server/items"
 
 
   const [items, setItems] = useState([])
