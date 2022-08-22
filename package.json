@@ -1,7 +1,7 @@
 {
-  "name": "startingpoint",
+  "name": "first_react_grocery_list",
   "version": "0.1.0",
-  "homepage": "https://ian-ed-mcallister.github.io/startingpoint",
+  "homepage": "https://ian-ed-mcallister.github.io/first_react_grocery_list",
   "private": true,
   "dependencies": {
     "react": "^18.2.0",
